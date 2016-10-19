@@ -52,8 +52,6 @@ $validator->set('field', array('required' => 'Do this or else.')
 $validator->errors['required'] = 'Why I Oughta!';
 ```
 
-The value of every field you set here is automatically ``trim()``ed and returned when ``$this->certified()``.
-
 Field names can be an array by adding brackets to the end ie. '**name[]**'.  They can also be multi-dimensional arrays such as '**name[first]**', or '**name[players][]**', or '**name[parent][child]**', etc.  The important thing to remember is that you must always use the exact name given here when referencing them in other methods.
 
 Rules and filters are '**|**' (single pipe) delimited, or you can make them an array.  Custom messages can be specified by making it an ``array($rule => $message, ...)``.  Parameters are comma-delimited, and placed within '**[]**' two brackets.  The available options are:
@@ -95,11 +93,13 @@ To see if the ``$_POST`` array you gave us meets all of your requirements:
 
 ```php
 if ($vars = $validator->certified()) {
-    // process $vars
+    // Process $vars
+} else {
+  // The form was either not submitted, or there were errors.
 }
 ```
 
-Otherwise the form was either not submitted, or there were errors.  From here, the best thing to do is use our BootPress Form Component, but if you have any better ideas then you can determine whether or not the ``$validator->required('field')``, get the submitted ``$validator->value('field')``, check if there was a ``$validator->error('field')``, get the data-rule-... ``$validator->rules('field')`` attributes, and the data-msg-... ``$validator->messages('field')`` attributes, find the ``$validator->id('field')`` we assigned, and set the ``$validator->jquery('#form')`` when creating your form and fields.
+The ``$vars`` returned are all ``trim()``ed and filtered, ready for you to process as you see fit.  From here, the best thing to do is use our BootPress Form Component, but if you have any better ideas then you can determine whether or not the ``$validator->required('field')``, get the submitted ``$validator->value('field')``, check if there was a ``$validator->error('field')``, get the data-rule-... ``$validator->rules('field')`` attributes, and the data-msg-... ``$validator->messages('field')`` attributes, find the ``$validator->id('field')`` we assigned, and set the ``$validator->jquery('#form')`` javascript when creating your form and fields.
 
 All of the above is just assuming you are using this component to validate submitted form data, but it is equally well suited to validate anything on the side as well.  The static methods we provide (and use ourselves) are:
 
