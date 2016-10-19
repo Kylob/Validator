@@ -95,7 +95,7 @@ To see if the ``$_POST`` array you gave us meets all of your requirements:
 if ($vars = $validator->certified()) {
     // Process $vars
 } else {
-  // The form was either not submitted, or there were errors.
+    // The form was either not submitted, or there were errors.
 }
 ```
 
