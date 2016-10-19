@@ -54,7 +54,7 @@ $validator->errors['required'] = 'Why I Oughta!';
 
 Field names can be an array by adding brackets to the end ie. '**name[]**'.  They can also be multi-dimensional arrays such as '**name[first]**', or '**name[players][]**', or '**name[parent][child]**', etc.  The important thing to remember is that you must always use the exact name given here when referencing them in other methods.
 
-Rules and filters are '**|**' (single pipe) delimited, or you can make them an array.  Custom messages can be specified by making it an ``array($rule => $message, ...)``.  Parameters are comma-delimited, and placed within '**[]**' two brackets.  The available options are:
+Rules and filters are either '**|**' (single pipe) delimited, or you can make them an array.  Custom messages can be specified by making it an ``array($rule => $message, ...)``.  Parameters are comma-delimited, and placed within '**[]**' two brackets.  The available options are:
 
 - '**remote[rule]**' - Set ``$validator->rules['rule'] = function($value){}`` to determine the validity of a submitted value.  The function should return a boolean true or false.
 - '**default**' - A default value if the field is empty, or not even set.
