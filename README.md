@@ -47,6 +47,9 @@ $validator->set(array(
 
 // Set and create a custom required message for this one field
 $validator->set('field', array('required' => 'Do this or else.')
+
+// Change the default required error message for all fields
+$validator->errors['required'] = 'Why I Oughta!';
 ```
 
 The value of every field you set here is automatically ``trim()``ed and returned when ``$this->certified()``.
@@ -96,7 +99,7 @@ if ($vars = $validator->certified()) {
 }
 ```
 
-Otherwise the form was either not submitted, or there were errors.  From here, the best thing to do is use our BootPress Form Component, but if you have any better ideas then you can determine whether or not the ``$validator->required('field')``, get the submitted ``$validator->value('field')``, check if there was a ``$validator->error('field')``, get the data-rule-... attributes ``$validator->rules('field')``, and the data-msg-... attributes ``$validator->messages('field')``, find the ``$validator->id('field')`` we assigned, and set the ``$validator->jquery('#form')`` when creating your form and fields.
+Otherwise the form was either not submitted, or there were errors.  From here, the best thing to do is use our BootPress Form Component, but if you have any better ideas then you can determine whether or not the ``$validator->required('field')``, get the submitted ``$validator->value('field')``, check if there was a ``$validator->error('field')``, get the data-rule-... ``$validator->rules('field')`` attributes, and the data-msg-... ``$validator->messages('field')`` attributes, find the ``$validator->id('field')`` we assigned, and set the ``$validator->jquery('#form')`` when creating your form and fields.
 
 All of the above is just assuming you are using this component to validate submitted form data, but it is equally well suited to validate anything on the side as well.  The static methods we provide (and use ourselves) are:
 
