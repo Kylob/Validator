@@ -8,11 +8,29 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testConstructorMethod()
+    public function testConstructorMagicGetIssetAndCertifiedMethods()
     {
+        // Constructor
         $validator = new Validator();
         $this->assertAttributeEquals($validator->errors, 'default_errors', $validator);
+        
+        // Magic Getter
+        $this->assertEquals(array(), $validator->data);
+        $this->assertEquals(array(), $validator->values);
+        $this->assertNull($validator->submitted);
+        $this->assertFalse($validator->certified);
+        $this->assertNull($validator->missing);
+        
+        // Magin Issetter
+        $this->assertTrue(isset($validator->data));
+        $this->assertTrue(isset($validator->values));
+        $this->assertTrue(isset($validator->submitted));
+        $this->assertTrue(isset($validator->certified));
+        $this->assertFalse(isset($validator->missing));
+        
+        // Certified
         $this->assertFalse($validator->certified());
+        $this->assertFalse($validator->submitted);
     }
 
     public function testSetRulesErrorValueAndSubmittedMethods()

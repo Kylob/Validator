@@ -37,7 +37,7 @@ class Component
         'inList' => 'Please make a valid selection.',
         'noWhiteSpace' => 'No white space please.',
     );
-    
+
     /** @var array A field's array of acceptable values which, if specified here, do not need to be included '**inList**'. */
     public $menu = array();
 
@@ -63,9 +63,49 @@ class Component
     protected $default_errors = array();
 
     /**
-     * Creates a BootPress\Validator\Component instance.
+     * Get the value of a protected property.
      * 
-     * @param array $values The user submitted variables you want to validate.
+     * @param string $name
+     * 
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+            case 'data':
+            case 'values':
+            case 'submitted':
+            case 'certified':
+                return $this->$name;
+                break;
+        }
+    }
+
+    /**
+     * Determine if a protected property is available.
+     * 
+     * @param string $name
+     * 
+     * @return mixed
+     */
+    public function __isset($name)
+    {
+        switch ($name) {
+            case 'data':
+            case 'values':
+            case 'submitted':
+            case 'certified':
+                return true;
+                break;
+        }
+
+        return false;
+    }
+
+    /**
+     * Pass an array of values to be validated.
+     * 
+     * @param array $values
      * 
      * ```php
      * $validator = new Validator($_POST);
@@ -245,8 +285,8 @@ class Component
                     $validate['ipv6'] = 'true';
                     break;
                 case 'inList':
-                    if ($param === true && isset($this->menu[$field]) && is_array($this->menu[$field])) {
-                        $param = $this->menu[$field]; // Predetermined acceptable values
+                    if ($param === true) {
+                        $param = (isset($this->menu[$field]) && is_array($this->menu[$field])) ? $this->menu[$field] : array(); // Predetermined acceptable values
                     } elseif (!is_array($param)) {
                         $param = array($param); // A single acceptable value
                     }

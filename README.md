@@ -99,7 +99,7 @@ if ($vars = $validator->certified()) {
 }
 ```
 
-The ``$vars`` returned are all ``trim()``ed and filtered, ready for you to process as you see fit.  From here, the best thing to do is use our BootPress Form Component, but if you have any better ideas then you can determine whether or not the ``$validator->required('field')``, get the submitted ``$validator->value('field')``, check if there was a ``$validator->error('field')``, get the data-rule-... ``$validator->rules('field')`` attributes, and the data-msg-... ``$validator->messages('field')`` attributes, find the ``$validator->id('field')`` we assigned, and set the ``$validator->jquery('#form')`` javascript when creating your form and fields.
+The ``$vars`` returned are all ``trim()``ed and filtered, ready for you to process as you see fit.  From here, the best thing to do is use our [BootPress Form Component](https://packagist.org/packages/bootpress/form), but if you have any better ideas then you can determine whether or not the ``$validator->required('field')``, get the submitted ``$validator->value('field')``, check if there was a ``$validator->error('field')``, get the data-rule-... ``$validator->rules('field')`` attributes, and the data-msg-... ``$validator->messages('field')`` attributes, find the ``$validator->id('field')`` we assigned, and set the ``$validator->jquery('#form')`` javascript when creating your form and fields.
 
 All of the above is just assuming you are using this component to validate submitted form data, but it is equally well suited to validate anything on the side as well.  The static methods we provide (and use ourselves) are:
 
