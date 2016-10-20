@@ -33,15 +33,15 @@ $validator = new Validator($_POST);
 The first thing you need to do is give us an array of values to validate against.  In this case you have given us the ``$_POST`` vars.  Now you can set the rules and filters for each field.
 
 ```php
-// Require a name value.
+// Require a name value
 $validator->set('name', 'required');
 
-// Require an email, and make sure it looks like one as well.
+// Require an email, and make sure it looks like one as well
 $validator->set('email', 'required|email');
 
 // Set multiple fields at once
 $validator->set(array(
-    'password' => 'required|alphaNumeric|minLength[5]|noWhiteSpace', // Using a pipe separated string.
+    'password' => 'required|alphaNumeric|minLength[5]|noWhiteSpace', // Using a pipe separated string
     'confirm' => array('required', 'matches[password]'), // Using an array of rules and filters
 ));
 
@@ -95,7 +95,7 @@ To see if the ``$_POST`` array you gave us meets all of your requirements:
 if ($vars = $validator->certified()) {
     // Process $vars
 } else {
-    // The form was either not submitted, or there were errors.
+    // The form was either not submitted, or there were errors
 }
 ```
 
