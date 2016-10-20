@@ -61,10 +61,11 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = new Validator($post);
         $validator->rules['fail'] = function ($value) { return false; };
         $validator->errors['fail'] = 'You just can\'t get this right.';
+        $validator->menu['occupation[jobs][]'] = array('executive', 'ceo');
         $this->assertNull($validator->set(array(
             'name' => 'required|minLength[2]|remote[fail]',
             'email' => 'required|email',
-            'occupation[jobs][]' => array('inList[executive,ceo]' => 'Go and get a real job.'),
+            'occupation[jobs][]' => array('inList' => 'Go and get a real job.'),
             'remember' => 'yesNo',
         )));
         

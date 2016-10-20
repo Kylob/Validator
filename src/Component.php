@@ -6,18 +6,10 @@ use BootPress\Page\Component as Page;
 
 class Component
 {
-    /**
-     * Custom validation rules that you would like to apply.
-     * 
-     * @var callable[]
-     */
+    /** @var callable[] Custom validation rules that you would like to apply. */
     public $rules = array();
 
-    /**
-     * Before you check if ``$this->certified()``, these are the error messages associated with each validation rule.  After ``$this->certified()``, these are all the errors we encountered (if any).  You can customize and add as you see fit.
-     * 
-     * @var string[]
-     */
+    /** @var string[] Before you check if ``$this->certified()``, these are the error messages associated with each validation rule.  After ``$this->certified()``, these are all the errors we encountered (if any).  You can customize and add as you see fit. */
     public $errors = array(
         'remote' => 'Please fix this field.',
         'required' => 'This field is required.',
@@ -45,58 +37,33 @@ class Component
         'inList' => 'Please make a valid selection.',
         'noWhiteSpace' => 'No white space please.',
     );
+    
+    /** @var array A field's array of acceptable values which, if specified here, do not need to be included '**inList**'. */
+    public $menu = array();
 
-    /**
-     * This is where we save all of the information ``$this->set()``ed for each field.
-     * 
-     * @var array
-     */
+    /** @var array This is where we save all of the information ``$this->set()``ed for each field. */
     protected $data = array();
 
-    /**
-     * These are the user submitted values for each field.
-     * 
-     * @var array
-     */
+    /** @var array These are the user submitted values for each field. */
     protected $values = array();
 
-    /**
-     * Whether the form has been submitted or not.  Null if we don't know.
-     * 
-     * @var null|bool
-     */
+    /** @var null|bool Whether the form has been submitted or not.  Null if we don't know. */
     protected $submitted = null;
 
-    /**
-     * Either false or an array of all the submitted values.
-     * 
-     * @var false|array
-     */
+    /** @var false|array Either false or an array of all the submitted values. */
     protected $certified = false;
 
-    /**
-     * The rules we reserve for validation until the end.
-     * 
-     * @var string[]
-     */
+    /** @var string[] The rules we reserve for validation until the end. */
     protected $reserved = array('default', 'required', 'equalTo', 'notEqualTo');
 
-    /**
-     * The rules we define in-house.
-     * 
-     * @var string[]
-     */
+    /** @var string[] The rules we define in-house. */
     protected $methods = array('number', 'integer', 'digits', 'min', 'max', 'range', 'alphaNumeric', 'minLength', 'maxLength', 'rangeLength', 'minWords', 'maxWords', 'rangeWords', 'pattern', 'date', 'email', 'url', 'ipv4', 'ipv6', 'inList', 'yesNo', 'trueFalse', 'noWhiteSpace', 'singleSpace');
 
-    /**
-     * So that we have something to work with no matter what happens to ``$this->errors`` (anything can happen) public property.
-     * 
-     * @var string[]
-     */
+    /** @var string[] So that we have something to work with no matter what happens to ``$this->errors`` (anything can happen) public property. */
     protected $default_errors = array();
 
     /**
-     * Creates a BootPress\Validator\Component object.
+     * Creates a BootPress\Validator\Component instance.
      * 
      * @param array $values The user submitted variables you want to validate.
      * 
@@ -278,10 +245,12 @@ class Component
                     $validate['ipv6'] = 'true';
                     break;
                 case 'inList':
-                    if (!is_array($param)) {
-                        $param = array($param);
-                        $rules[$rule] = $param;
+                    if ($param === true && isset($this->menu[$field]) && is_array($this->menu[$field])) {
+                        $param = $this->menu[$field]; // Predetermined acceptable values
+                    } elseif (!is_array($param)) {
+                        $param = array($param); // A single acceptable value
                     }
+                    $rules[$rule] = $param; // An array of acceptable values
                     $validate['inList'] = implode(',', $param);
                     // json string arrays do not play nicely with data-rule-... attributes
                     $page->jquery('jQuery.validator.addMethod("inList", function(value, element, params) { return this.optional(element) || $.inArray(value, params.split(",")) !== -1; }, "Please make a valid selection.");');
