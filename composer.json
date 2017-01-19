@@ -2,6 +2,7 @@
     "name": "bootpress/validator",
     "description": "Form validation that is designed to simplify and work seamlessly with Jörn's jQuery Validation Plugin.",
     "keywords": ["bootpress", "form", "validation"],
+    "homepage": "https://www.bootpress.org/components/validator.html",
     "license": "MIT",
     "authors": [
         {
